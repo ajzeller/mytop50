@@ -146,13 +146,15 @@ if (!dev && cluster.isMaster) {
               });
 
               res.cookie('refresh_token', refresh_token, { maxAge: 604800000, httpOnly: false });
+
+              res.redirect('/')
       
               // we can also pass the token to the browser to make requests from there
-              res.redirect('/#' +
-                querystring.stringify({
-                  access_token: access_token,
-                  refresh_token: refresh_token
-                }));
+              // res.redirect('/#' +
+              //   querystring.stringify({
+              //     access_token: access_token,
+              //     refresh_token: refresh_token
+              //   }));
             } else {
               res.redirect('/#' +
                 querystring.stringify({

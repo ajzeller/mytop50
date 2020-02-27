@@ -6,7 +6,6 @@ import LoadingIcon from './loading-icon'
 import Logo from '../assets/logo_sort_4.svg'
 
 const Nav = styled.nav`
-  background-color: ${props => props.theme.theme.bg.primary};
   max-width: ${props => props.theme.theme.contentWidths[0]};
   margin: auto;
   display: flex;
@@ -14,6 +13,11 @@ const Nav = styled.nav`
   padding: 15px 15px;
   color: ${props => props.theme.theme.text.primary};
   justify-content: space-between;
+`
+
+const StyledHeader = styled.header`
+  background-color: ${props => props.theme.theme.bg.primary};
+  /* border-bottom: 1px solid #E9E6E9; */
 `
 
 const HeaderGroup = styled.div`
@@ -28,16 +32,16 @@ const HeaderGroup = styled.div`
     text-decoration: none;
     color: ${props => props.theme.theme.text.primary};
 
-    &.logo-text {
-      font-size: 1.1rem;
-    }
-
     .bold{
       font-weight: 600;
     }
 
     .italic{
       font-style: italic;
+    }
+
+    &.logo-text {
+      font-size: 1.2rem;
     }
   }
 
@@ -58,37 +62,39 @@ const ProfileImg = styled.img`
 const Header = () => {
 
   return (
-    <Nav>
-      <HeaderGroup>
-        <Link href="/">
-          <a className='logo-text'>
-            <Logo className='logo' /> 
-            my<span className='bold'>top</span><span className='italic'>50</span>
-          </a>
-        </Link>
+    <StyledHeader>
+      <Nav>
+        <HeaderGroup>
+          <Link href="/">
+            <a className='logo-text'>
+              <Logo className='logo' /> 
+              my<span className='bold'>top</span><span className='italic'>50</span>
+            </a>
+          </Link>
 
-        
-      </HeaderGroup>
-          
-      <HeaderGroup>
-        <LoadingIcon isLoading={false} className='nav-item' />
-        {/* {!loading &&
-          (user ? (
-            <>
-                <a href="/api/logout">Logout</a>
-                <Link href="/profile" >
-                  <a><ProfileImg src={user.picture} alt="profile-photo"/></a>
-                </Link>
-                
-            </>
-          ) : (
-            <>
-                <a href="/api/login">Login</a>
-            </>
-          ))} */}
-        <Toggler />
-      </HeaderGroup>
-    </Nav>
+         
+        </HeaderGroup>
+            
+        <HeaderGroup>
+          <LoadingIcon isLoading={false} className='nav-item' />
+          {/* {!loading &&
+            (user ? (
+              <>
+                  <a href="/api/logout">Logout</a>
+                  <Link href="/profile" >
+                    <a><ProfileImg src={user.picture} alt="profile-photo"/></a>
+                  </Link>
+                  
+              </>
+            ) : (
+              <>
+                  <a href="/api/login">Login</a>
+              </>
+            ))} */}
+          <Toggler />
+        </HeaderGroup>
+      </Nav>
+    </StyledHeader>
   );
 };
 
