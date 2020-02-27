@@ -1,0 +1,14 @@
+{
+  "env": {
+    "BASE_URL": "https://mytop50.now.sh/"
+  },
+
+  "build": {
+    "env": {
+      "BASE_URL": "https://mytop50.now.sh/",
+      "CLIENT_ID": "@spotify_client_id",
+      "CLIENT_SECRET": "@spotify_client_secret",
+      "REDIRECT_URI": "https://mytop50.now.sh/callback"
+    }
+  }
+}
