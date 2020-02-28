@@ -165,12 +165,7 @@ const Charts = ({
 
   return(
     <>
-      <FilterButtons 
-            timeRange={timeRange} 
-            setTimeRange={setTimeRange}  
-            contentType={contentType}
-            setContentType={setContentType}
-        />
+      
       <Container contentType={contentType}>
         <ChartColumn className='tracks' contentType={contentType}>
           {tracks}

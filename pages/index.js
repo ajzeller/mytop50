@@ -56,7 +56,17 @@ const Index = ({ storedTimeRange = 'short_term', storedContentType = 'tracks' , 
 
   return (
     <Layout headerIsVisible={true} >
-      {!refresh_token ? <Login /> : showCharts}
+      {!refresh_token ? <Login /> : (
+      <>
+      <FilterButtons 
+            timeRange={timeRange} 
+            setTimeRange={setTimeRange}  
+            contentType={contentType}
+            setContentType={setContentType}
+        />
+        {showCharts}
+      </>
+      )}
       
     </Layout>
   );

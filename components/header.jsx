@@ -29,7 +29,7 @@ const StyledHeader = styled.header`
 const HeaderGroup = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(3, auto);
   grid-gap: 15px;
 
   a {
@@ -100,7 +100,7 @@ const ProfileImg = styled.img`
 const IncrementContainer = styled.div`
   justify-self: center;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, auto);
   align-items: center;
   grid-gap: 5px;
 
@@ -140,22 +140,16 @@ const AddPlaylistButton = styled.button`
 const Header = () => {
   const [menuShown, setMenuShown] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const {loading, spotifyData} = useContext(SpotifyContext)
+  const {loading, spotifyData, refreshToken, setRefreshToken} = useContext(SpotifyContext)
   const [num, setNum] = useState(50)
   console.log(num)
-
-  useEffect(() => {
-    if(spotifyData){
-      setIsLoggedIn(true)
-    }
-  }, [spotifyData])
 
   // console.log(loading)
  
   const logout = () => {
     Cookie.remove('refresh_token_v2')
     setMenuShown(false)
-    setIsLoggedIn(false)
+    setRefreshToken(null)
     Router.replace('/')
   }
 
@@ -182,7 +176,7 @@ const Header = () => {
     </MenuMobile>
   )
 
-  const showHamburger = isLoggedIn && (
+  const showHamburger = refreshToken && (
           <Hamburger onClick={() => setMenuShown(prev => !prev)}>
             <IoIosMenu size={'30px'} />
           </Hamburger>
@@ -202,23 +196,8 @@ const Header = () => {
         </HeaderGroup>
             
         <HeaderGroup>
-            {/* <LoadingIcon isLoading={true} /> */}
-          {/* {!loading &&
-            (user ? (
-              <>
-                  <a href="/api/logout">Logout</a>
-                  <Link href="/profile" >
-                    <a><ProfileImg src={user.picture} alt="profile-photo"/></a>
-                  </Link>
-                  
-              </>
-            ) : (
-              <>
-                  <a href="/api/login">Login</a>
-              </>
-            ))} */}
+          {loading ? <LoadingIcon isLoading={loading} /> : <span></span>}
           <Toggler />
-
           {showHamburger}
 
         </HeaderGroup>
