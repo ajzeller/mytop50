@@ -4,7 +4,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   width: 100%;
-  padding: 0 10px;
+  padding: 15px 5px 5px 5px;
   margin: 0 0 10px 0;
   box-sizing: border-box;
 
@@ -20,7 +20,7 @@ const RangeButtonsGrid = styled.div`
   justify-items: center;
   grid-template-columns: repeat(4, auto);
   background-color: ${props => props.theme.theme.bg.secondary};
-  border-radius: 2px;
+  border-radius: 0px;
   box-shadow: 0 1px 5px 1px rgba(0,0,0,0.1);
 
   @media (min-width: 1000px){
@@ -30,12 +30,12 @@ const RangeButtonsGrid = styled.div`
 
 const Button = styled.div`
   font-size: 0.65rem;
-  padding: 5px 5px;
+  padding: 5px 4px;
   text-transform: uppercase;
 
   &.selected, &:hover {
     border-bottom: 2px solid ${props => props.theme.theme.colors.spotifyGreen};
-    border-radius: 2px;
+    border-radius: 0px;
     cursor: pointer;
   }
 

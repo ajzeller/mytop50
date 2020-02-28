@@ -64,12 +64,12 @@ const Index = ({ storedTimeRange = 'short_term', storedContentType = 'tracks' , 
 
 Index.getInitialProps = ({ req }) => {
   const cookies = parseCookies(req);
-  const {refresh_token, storedTimeRange, storedContentType} = cookies
+  const {refresh_token_v2, storedTimeRange, storedContentType} = cookies
   // console.log(cookies)
 
   return {
     // initialRememberValue: cookies.rememberMe,
-    refresh_token,
+    refresh_token: refresh_token_v2,
     storedTimeRange,
     storedContentType
   };

@@ -2,14 +2,15 @@
   "name": "custom-server-express",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node server2.js",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server2.js"
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.19.2",
     "babel-plugin-inline-react-svg": "^1.1.1",
+    "bootstrap": "^4.4.1",
     "cookie": "^0.4.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
@@ -23,6 +24,7 @@
     "qs": "^6.9.1",
     "querystring": "^0.2.0",
     "react": "^16.12.0",
+    "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
     "react-icons": "^3.9.0",
     "react-toggle": "^4.1.1",

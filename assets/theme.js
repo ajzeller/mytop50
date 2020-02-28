@@ -23,7 +23,7 @@ const light = {
 const dark = {
   bg: {
     primary: '#121212',
-    secondary: '#202224',
+    secondary: '#282828',
     tertiary: '#181818',
     inset: '#111111',
     input: 'rgba(191,193,201,0.12)'
