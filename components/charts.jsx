@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import styled from 'styled-components'
 import { SpotifyContext } from '../lib/spotify'
+import { IoIosPlay, IoIosArrowForward } from "react-icons/io";
 
 const Container = styled.div`
   display: grid;
@@ -43,7 +44,7 @@ const TrackItem = styled.div`
   display: grid;
   align-items: center;
   background-color: ${props => props.theme.theme.bg.tertiary};
-  grid-template-columns: 60px 1fr 50px;
+  grid-template-columns: 60px 1fr 30px;
   height: 60px;
 
   .inner {
@@ -59,13 +60,18 @@ const TrackItem = styled.div`
       color: ${props => props.theme.theme.text.tertiary};
     }
   }
+
+  svg {
+    color: ${props => props.theme.theme.text.tertiary};
+    vertical-align: bottom;
+  }
 `
 
 const ArtistItem = styled.div`
   display: grid;
   align-items: center;
   background-color: ${props => props.theme.theme.bg.tertiary};
-  grid-template-columns: 60px 1fr 50px;
+  grid-template-columns: 60px 1fr 30px;
   height: 60px;
 
   .inner {
@@ -80,6 +86,11 @@ const ArtistItem = styled.div`
     .followerCount {
       color: ${props => props.theme.theme.text.tertiary};
     }
+  }
+
+  svg {
+    color: ${props => props.theme.theme.text.tertiary};
+    vertical-align: bottom;
   }
 `
 
@@ -112,21 +123,23 @@ const Charts = () => {
       if(timeRange !== 'history'){
         tracks = (spotifyData.tracks[timeRange].items.map((item, i) => (
           <TrackItem key={i} >
-          <Image src={item.album.images[2].url} />
-          <div className='inner'>
-            <span className='trackName'>{item.name}</span>
-            <span className='artistName'>{item.artists[0].name}</span>
-          </div>
+            <Image src={item.album.images[2].url} />
+            <div className='inner'>
+              <span className='trackName'>{item.name}</span>
+              <span className='artistName'>{item.artists[0].name}</span>
+            </div>
+            <a href={item.external_urls.spotify} target='_blank'><IoIosPlay size={'20px'} /></a> 
           </TrackItem>
         )))
       } else {
         tracks = (spotifyData.tracks[timeRange].items.map((item, i) => (
           <TrackItem key={i}>
-          <Image src={item.track.album.images[2].url} />
-          <div className='inner'>
-            <span className='trackName'>{item.track.name}</span>
-            <span className='artistName'>{item.track.artists[0].name}</span>
-          </div>
+            <Image src={item.track.album.images[2].url} />
+            <div className='inner'>
+              <span className='trackName'>{item.track.name}</span>
+              <span className='artistName'>{item.track.artists[0].name}</span>
+            </div>
+            <a href={item.track.external_urls.spotify} target='_blank'><IoIosPlay size={'20px'} /></a> 
           </TrackItem>
         )))
       }
@@ -145,6 +158,8 @@ const Charts = () => {
               <span className='artistName'>{item.name}</span>
               <span className='followerCount'>{numberWithCommas(item.followers.total)} followers</span>
             </div>
+            <a href={item.external_urls.spotify} target='_blank'><IoIosArrowForward size={'20px'} /></a> 
+
           </ArtistItem>
         )))
       }

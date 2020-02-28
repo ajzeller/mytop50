@@ -126,6 +126,10 @@ const IncrementContainer = styled.div`
   svg{
     height: 2rem;
     width: 2rem;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `
 
@@ -146,6 +150,7 @@ const AddPlaylistButton = styled.button`
 
   &:hover {
     background-color: $spotify-button-border;
+    cursor: pointer;
   }
 
   &:focus {outline:0;}
@@ -178,11 +183,14 @@ const LogoutContainer = styled.div`
 
 const Logout = styled.span`
   color: ${props => props.theme.theme.text.tertiary};
+
+  &:hover {
+      cursor: pointer;
+    }
 `
 
 const Header = () => {
   const [menuShown, setMenuShown] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [playlistSuccess , setPlaylistSuccess] = useState(false)
 
   const {loading, 
@@ -239,6 +247,19 @@ const Header = () => {
     </MenuMobile>
   )
 
+  const menuDesktop = refreshToken && (
+    <MenuDesktop>
+      <IncrementContainer>
+        <AddPlaylistButton onClick={ () => handleAddPlaylist() } >
+          {!playlistSuccess ? <>Add top <Counter>{num}</Counter> to Library</> : <>Playlist added</> }
+        </AddPlaylistButton>
+        <IoIosAddCircleOutline onClick={increment} />
+        <IoIosRemoveCircleOutline onClick={decrement} />
+      </IncrementContainer>
+      <Logout onClick={() => logout()}>Logout</Logout>
+    </MenuDesktop>
+  )
+
   const showHamburger = refreshToken && (
           <Hamburger onClick={() => setMenuShown(prev => !prev)}>
             <IoIosMenu size={'30px'} />
@@ -260,17 +281,7 @@ const Header = () => {
             
         <HeaderGroup>
           {loading ? <LoadingIcon isLoading={loading} /> : <span></span>}
-          <MenuDesktop>
-            <IncrementContainer>
-              <AddPlaylistButton onClick={ () => handleAddPlaylist() } >
-                {!playlistSuccess ? <>Add top <Counter>{num}</Counter> to Library</> : <>Playlist added</> }
-              </AddPlaylistButton>
-              <IoIosAddCircleOutline onClick={increment} />
-              <IoIosRemoveCircleOutline onClick={decrement} />
-            </IncrementContainer>
-            <Logout onClick={() => logout()}>Logout</Logout>
-          </MenuDesktop>
-          {/* <IoIosLogOut size={'24px'} /> */}
+          {menuDesktop}
           <Toggler />
           {showHamburger}
 
