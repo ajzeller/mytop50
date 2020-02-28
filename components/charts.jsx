@@ -1,13 +1,11 @@
+import { useContext } from "react";
 import styled from 'styled-components'
-import FilterButtons from '../components/filterButtons'
+import { SpotifyContext } from '../lib/spotify'
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  /* grid-template-areas: "tracks"; */
-  /* grid-template-areas: ${props => (props.contentType == 'tracks' ? 'tracks' : 'artists')}; */
-  /* padding: ${props => (props.contentType == 'tracks' ? '10px' : '10px')}; */
-  /* background-color: ${props => (props.contentType == 'tracks' ? 'white' : 'black')}; */
+
   @media (min-width: 1000px) {
       grid-template-columns: 1fr 1fr;
       grid-gap: 50px;
@@ -18,6 +16,8 @@ const ChartColumn = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   background-color: ${props => props.theme.theme.border.primary};
+  box-shadow: 0 1px 5px 1px rgba(0,0,0,0.1);
+
   grid-gap: 1px;
 
   &.tracks {
@@ -81,7 +81,6 @@ const ArtistItem = styled.div`
       color: ${props => props.theme.theme.text.tertiary};
     }
   }
-
 `
 
 const Image = styled.img`
@@ -90,14 +89,15 @@ const Image = styled.img`
   object-fit: cover;
 `
 
-const Charts = ({ 
-  spotifyData, 
-  timeRange, 
-  setTimeRange,
-  contentType,
-  setContentType
- }) => {
+const Charts = () => {
   // console.log(spotifyData)
+
+  const { 
+    spotifyData, 
+    timeRange, 
+    setTimeRange,
+    contentType,
+    setContentType } = useContext(SpotifyContext)
 
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -112,7 +112,7 @@ const Charts = ({
       if(timeRange !== 'history'){
         tracks = (spotifyData.tracks[timeRange].items.map((item, i) => (
           <TrackItem key={i} >
-          <Image src={item.album.images[0].url} />
+          <Image src={item.album.images[2].url} />
           <div className='inner'>
             <span className='trackName'>{item.name}</span>
             <span className='artistName'>{item.artists[0].name}</span>
@@ -122,7 +122,7 @@ const Charts = ({
       } else {
         tracks = (spotifyData.tracks[timeRange].items.map((item, i) => (
           <TrackItem key={i}>
-          <Image src={item.track.album.images[0].url} />
+          <Image src={item.track.album.images[2].url} />
           <div className='inner'>
             <span className='trackName'>{item.track.name}</span>
             <span className='artistName'>{item.track.artists[0].name}</span>
@@ -140,7 +140,7 @@ const Charts = ({
       if(timeRange !== 'history'){
         artists = (spotifyData.artists[timeRange].items.map((item,i) => (
           <ArtistItem key={i}>
-            <Image src={item.images[0].url} />
+            <Image src={item.images[2].url} />
             <div className='inner'>
               <span className='artistName'>{item.name}</span>
               <span className='followerCount'>{numberWithCommas(item.followers.total)} followers</span>

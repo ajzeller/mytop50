@@ -17,7 +17,14 @@ const Index = ({ storedTimeRange = 'short_term', storedContentType = 'tracks' , 
 
   console.log(refresh_token)
 
-  const {setRefreshToken, spotifyData} = useContext(SpotifyContext)
+  const {
+    setRefreshToken, 
+    spotifyData,
+    timeRange,
+    setTimeRange,
+    contentType,
+    setContentType
+  } = useContext(SpotifyContext)
   setRefreshToken(refresh_token)
   console.log(spotifyData)
 
@@ -28,14 +35,12 @@ const Index = ({ storedTimeRange = 'short_term', storedContentType = 'tracks' , 
 
 
   // history, short_term, medium_term, long_term
-  const [timeRange, setTimeRange] = useState(storedTimeRange)
+  // const [timeRange, setTimeRange] = useState(storedTimeRange)
   // const [timeRange, setTimeRange] = useState(() => JSON.parse(storedTimeRange))
   
   // tracks or artists
   // const [contentType, setContentType] = useState(() => JSON.parse(storedContentType))
-  const [contentType, setContentType] = useState(storedContentType)
-
-  const [topTracks, setTopTracks] = useState(null)
+  // const [contentType, setContentType] = useState(storedContentType)
 
   // useEffect(() => {
   //   // Cookie.set("rememberMe", JSON.stringify(rememberMe));
@@ -47,10 +52,6 @@ const Index = ({ storedTimeRange = 'short_term', storedContentType = 'tracks' , 
     <>
       <Charts 
         spotifyData={spotifyData}
-        timeRange={timeRange}
-        setTimeRange={setTimeRange}
-        contentType={contentType}
-        setContentType={setContentType}
       />
     </>)
 

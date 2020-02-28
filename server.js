@@ -6,6 +6,7 @@ const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 
 const request = require('request'); // "Request" library
+const bodyParser = require('body-parser')
 const cors = require('cors');
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
@@ -35,6 +36,8 @@ if (!dev && cluster.isMaster) {
   app.prepare()
     .then(() => {
       const server = express();
+      server.use(bodyParser.urlencoded({ extended: false }))
+      server.use(bodyParser.json())
 
       if (!dev) {
         // Enforce SSL & HSTS in production
@@ -87,7 +90,8 @@ if (!dev && cluster.isMaster) {
         res.cookie(stateKey, state);
     
         // your application requests authorization
-        var scope = 'user-read-private user-read-email';
+        var scope = 'user-read-private user-read-email user-top-read playlist-modify-private user-read-recently-played';
+        
         res.redirect('https://accounts.spotify.com/authorize?' +
           querystring.stringify({
             response_type: 'code',
@@ -141,9 +145,9 @@ if (!dev && cluster.isMaster) {
               };
       
               // use the access token to access the Spotify Web API
-              request.get(options, function(error, response, body) {
-                console.log(body);
-              });
+              // request.get(options, function(error, response, body) {
+              //   console.log(body);
+              // });
 
               res.cookie('refresh_token_v2', refresh_token, { maxAge: 604800000, httpOnly: false });
 
@@ -207,7 +211,7 @@ if (!dev && cluster.isMaster) {
         // console.log(access_token)
 
         const tracks = await getTracks(access_token)
-        console.log(tracks)
+        // console.log(tracks)
         
         res.json(tracks)
       });
@@ -234,7 +238,7 @@ if (!dev && cluster.isMaster) {
         // console.log(access_token)
 
         const artists = await getArtists(access_token)
-        console.log(artists)
+        // console.log(artists)
         
         res.json(artists)
       });
@@ -257,7 +261,7 @@ if (!dev && cluster.isMaster) {
 
         const access_token = await getAccessToken(refresh_token)
         const history = await getHistory(access_token)
-        console.log(history)
+        // console.log(history)
         res.json(history)
 
       })
@@ -278,11 +282,66 @@ if (!dev && cluster.isMaster) {
       
           const access_token = await getAccessToken(refresh_token)
           const profile = await getProfile(access_token)
-          console.log(profile)
+          // console.log(profile)
           res.json(profile)
 
         } catch(err) {
           res.json(`Error: ${err}`)
+        }
+      })
+
+      // POST new playlist with user's top tracks 
+      server.post('/api/playlist', async function(req, res){
+        const {refresh_token, name, id, playlist} = req.body
+        // const refresh_token = req.body.refresh_token;
+        // const id = req.body.id
+        // const name = req.body.name
+        console.log(playlist)
+
+        try{
+          const newPlaylist  = async(accessToken) => {
+            const options = {
+              method: 'POST',
+              headers: { 
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+              },
+              url: `https://api.spotify.com/v1/users/${id}/playlists`,
+              data: { "name": name }
+            }
+            const response = await axios(options)
+            // console.log(response)
+            return(response.data)
+          }
+
+          const postPlaylist  = async(accessToken, playlist_id) => {
+            const options = {
+              method: 'POST',
+              headers: { 
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+              },
+              url: `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
+              data: { "uris": playlist }
+            }
+            const response = await axios(options)
+            // console.log(response)
+            return(response.data)
+          }
+
+          const access_token = await getAccessToken(refresh_token)
+          console.log(access_token)
+          const createdPlaylist = await newPlaylist(access_token)
+          playlistId = createdPlaylist.id
+          const response = await postPlaylist(access_token, playlistId)
+          if(response.snapshot_id){
+            res.json('success')
+          }
+          // res.json(response)
+
+
+        } catch(err){
+          res.json(err)
         }
       })
     

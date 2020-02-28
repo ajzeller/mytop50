@@ -8,7 +8,11 @@ import styled from 'styled-components'
 import LoadingIcon from './loading-icon'
 import Logo from '../assets/logo_sort_4.svg'
 import { SpotifyContext } from '../lib/spotify'
-import { IoIosMenu, IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+import { 
+  IoIosMenu, 
+  IoIosAddCircleOutline, 
+  IoIosRemoveCircleOutline, 
+  IoIosLogOut } from "react-icons/io";
 
 
 const Navbar = styled.nav`
@@ -80,6 +84,10 @@ const Hamburger = styled.div`
   &:hover{
     cursor: pointer;
   }
+
+  @media (min-width: 1000px) {
+      display: none;
+    }
 `
 
 const MenuMobile = styled.div`
@@ -87,8 +95,19 @@ const MenuMobile = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   grid-gap: 10px;
+`
+
+const MenuDesktop = styled.div`
+  display: none;
+
+  @media (min-width: 1000px) {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    grid-gap: 15px;
+  }
 `
 
 const ProfileImg = styled.img`
@@ -118,7 +137,7 @@ const AddPlaylistButton = styled.button`
   border: 0;
   border-radius: 100px;
   text-transform: uppercase;
-  padding: 10px 20px;
+  padding: 5px 20px;
   margin: 0px 0px 0px 0px;
   letter-spacing: 2px;
   font-weight: 600;
@@ -129,18 +148,49 @@ const AddPlaylistButton = styled.button`
     background-color: $spotify-button-border;
   }
 
+  &:focus {outline:0;}
+
+
   span{
     background-color: #1E9548;
     padding: 5px 3px 1px 5px;
+    min-width: 20px;
     border-radius: 5px;
     border-bottom: 4px solid #1F8242;
   }
 `
 
+const Counter = styled.div`
+  display: inline-block;
+  background-color: #1E9548;
+  padding: 5px 3px 1px 5px;
+  min-width: 20px;
+  border-radius: 5px;
+  border-bottom: 4px solid #1F8242;
+`
+
+const LogoutContainer = styled.div`
+  display: grid;
+  grid-template-columns: auto;
+  justify-items: center;
+  align-items: center;
+`
+
+const Logout = styled.span`
+  color: ${props => props.theme.theme.text.tertiary};
+`
+
 const Header = () => {
   const [menuShown, setMenuShown] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const {loading, spotifyData, refreshToken, setRefreshToken} = useContext(SpotifyContext)
+  const [playlistSuccess , setPlaylistSuccess] = useState(false)
+
+  const {loading, 
+         spotifyData, 
+         refreshToken, 
+         setRefreshToken,
+         postPlaylist
+        } = useContext(SpotifyContext)
   const [num, setNum] = useState(50)
   console.log(num)
 
@@ -165,14 +215,27 @@ const Header = () => {
     }
   }
 
+  const handleAddPlaylist = async () => {
+    const res = await postPlaylist(num)
+    if(res == 'success'){
+      setPlaylistSuccess(true)
+      setTimeout(() => {
+        setPlaylistSuccess(false)
+      }, 2000);
+    }
+    console.log(res)
+  }
+
   const menuMobile = menuShown && (
     <MenuMobile>
       <IncrementContainer>
-        <AddPlaylistButton>Add Top <span>{num}</span> to Library</AddPlaylistButton>
+        <AddPlaylistButton onClick={ () => handleAddPlaylist() } >
+          {!playlistSuccess ? <>Add top <Counter>{num}</Counter> to Library</> : <>Playlist added</> }
+        </AddPlaylistButton>
         <IoIosAddCircleOutline onClick={increment} />
         <IoIosRemoveCircleOutline onClick={decrement} />
       </IncrementContainer>
-      <span onClick={() => logout()}>Logout</span>
+      <Logout onClick={() => logout()}>Logout</Logout>
     </MenuMobile>
   )
 
@@ -197,6 +260,17 @@ const Header = () => {
             
         <HeaderGroup>
           {loading ? <LoadingIcon isLoading={loading} /> : <span></span>}
+          <MenuDesktop>
+            <IncrementContainer>
+              <AddPlaylistButton onClick={ () => handleAddPlaylist() } >
+                {!playlistSuccess ? <>Add top <Counter>{num}</Counter> to Library</> : <>Playlist added</> }
+              </AddPlaylistButton>
+              <IoIosAddCircleOutline onClick={increment} />
+              <IoIosRemoveCircleOutline onClick={decrement} />
+            </IncrementContainer>
+            <Logout onClick={() => logout()}>Logout</Logout>
+          </MenuDesktop>
+          {/* <IoIosLogOut size={'24px'} /> */}
           <Toggler />
           {showHamburger}
 
