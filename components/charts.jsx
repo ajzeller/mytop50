@@ -98,6 +98,22 @@ const Image = styled.img`
   width: 60px;
   height: 60px;
   object-fit: cover;
+  position: absolute;
+`
+
+const ImageContainer = styled.div`
+  width: 60px;
+  height: 60px;
+`
+
+const Index = styled.div`
+  background-color: ${props => props.theme.theme.colors.spotifyBlue};
+  position: absolute;
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 3px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 1px 5px 1px rgba(0,0,0,0.1);
 `
 
 const Charts = () => {
@@ -123,7 +139,10 @@ const Charts = () => {
       if(timeRange !== 'history'){
         tracks = (spotifyData.tracks[timeRange].items.map((item, i) => (
           <TrackItem key={i} >
-            <Image src={item.album.images[2].url} />
+            <ImageContainer>
+              <Image src={item.album.images[2].url} />
+              <Index>{i+1}</Index>
+            </ImageContainer>
             <div className='inner'>
               <span className='trackName'>{item.name}</span>
               <span className='artistName'>{item.artists[0].name}</span>
@@ -134,7 +153,10 @@ const Charts = () => {
       } else {
         tracks = (spotifyData.tracks[timeRange].items.map((item, i) => (
           <TrackItem key={i}>
-            <Image src={item.track.album.images[2].url} />
+            <ImageContainer>
+              <Image src={item.track.album.images[2].url} />
+              <Index>{i+1}</Index>
+            </ImageContainer>
             <div className='inner'>
               <span className='trackName'>{item.track.name}</span>
               <span className='artistName'>{item.track.artists[0].name}</span>
@@ -153,7 +175,10 @@ const Charts = () => {
       if(timeRange !== 'history'){
         artists = (spotifyData.artists[timeRange].items.map((item,i) => (
           <ArtistItem key={i}>
-            <Image src={item.images[2].url} />
+            <ImageContainer>
+              <Image src={item.images[2].url} />
+              <Index>{i+1}</Index>
+            </ImageContainer>
             <div className='inner'>
               <span className='artistName'>{item.name}</span>
               <span className='followerCount'>{numberWithCommas(item.followers.total)} followers</span>

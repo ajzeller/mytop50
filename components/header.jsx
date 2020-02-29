@@ -110,12 +110,6 @@ const MenuDesktop = styled.div`
   }
 `
 
-const ProfileImg = styled.img`
-  width: 30px;
-  border-radius: 100%;
-  display: block;
-`
-
 const IncrementContainer = styled.div`
   justify-self: center;
   display: grid;
