@@ -1,9 +1,11 @@
-import '../assets/styles.scss'
+import Router from "next/router";
+import withGA from "next-ga";
 import { SpotifyProvider } from '../lib/spotify'
 import Provider from '../components/provider'
+import '../assets/styles.scss'
 
 // This default export is required in a new `pages/_app.js` file.
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   return(
     <SpotifyProvider>
       <Provider>
@@ -12,3 +14,5 @@ export default function MyApp({ Component, pageProps }) {
     </SpotifyProvider>
   ) 
 }
+
+export default withGA("UA-46643989-8", Router)(MyApp);

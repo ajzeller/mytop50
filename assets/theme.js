@@ -15,7 +15,8 @@ const light = {
     onPrimary: '#ffffff'
   },
   border: {
-    primary: '#eff0f5'
+    primary: '#eff0f5',
+    secondary: '#DDDDDD'
   }
   // ...
 }
@@ -37,7 +38,8 @@ const dark = {
     onPrimary: '#050505'
   },
   border: {
-    primary: '#282828'
+    primary: '#282828',
+    secondary: '#2D2D2D'
   }
   // ...
 }
