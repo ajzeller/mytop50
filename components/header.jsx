@@ -232,7 +232,7 @@ const Header = () => {
     <MenuMobile>
       <IncrementContainer>
         <AddPlaylistButton onClick={ () => handleAddPlaylist() } >
-          {!playlistSuccess ? <>Add top <Counter>{num}</Counter> to Library</> : <>Playlist added</> }
+          {!playlistSuccess ? <>Add top <Counter>{num}</Counter> to Library</> : <>Playlist added 👌</> }
         </AddPlaylistButton>
         <IoIosAddCircleOutline onClick={increment} />
         <IoIosRemoveCircleOutline onClick={decrement} />
@@ -245,7 +245,7 @@ const Header = () => {
     <MenuDesktop>
       <IncrementContainer>
         <AddPlaylistButton onClick={ () => handleAddPlaylist() } >
-          {!playlistSuccess ? <>Add top <Counter>{num}</Counter> to Library</> : <>Playlist added</> }
+          {!playlistSuccess ? <>Add top <Counter>{num}</Counter> to Library</> : <>Playlist added 👌</> }
         </AddPlaylistButton>
         <IoIosAddCircleOutline onClick={increment} />
         <IoIosRemoveCircleOutline onClick={decrement} />

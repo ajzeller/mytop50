@@ -296,6 +296,7 @@ if (!dev && cluster.isMaster) {
         // const refresh_token = req.body.refresh_token;
         // const id = req.body.id
         // const name = req.body.name
+        console.log('create new playlist')
         console.log(playlist)
 
         try{
@@ -307,10 +308,10 @@ if (!dev && cluster.isMaster) {
                 'Content-Type': 'application/json'
               },
               url: `https://api.spotify.com/v1/users/${id}/playlists`,
-              data: { "name": name }
+              data: { "name": name, "public": 'false' }
             }
             const response = await axios(options)
-            // console.log(response)
+            console.log(response)
             return(response.data)
           }
 
@@ -341,6 +342,7 @@ if (!dev && cluster.isMaster) {
 
 
         } catch(err){
+          console.log(err)
           res.json(err)
         }
       })
