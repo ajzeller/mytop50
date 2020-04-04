@@ -42,7 +42,7 @@ if (!dev && cluster.isMaster) {
       if (!dev) {
         // Enforce SSL & HSTS in production
         server.use(function(req, res, next) {
-          var proto = req.headers["x-forwarded-proto"];
+          const proto = req.headers["x-forwarded-proto"];
           if (proto === "https") {
             res.set({
               'Strict-Transport-Security': 'max-age=31557600' // one-year
@@ -67,17 +67,17 @@ if (!dev && cluster.isMaster) {
        * @param  {number} length The length of the string
        * @return {string} The generated string
        */
-      var generateRandomString = function(length) {
-        var text = '';
-        var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const generateRandomString = function(length) {
+        let text = '';
+        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     
-        for (var i = 0; i < length; i++) {
+        for (let i = 0; i < length; i++) {
           text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
         return text;
       };
     
-      var stateKey = 'spotify_auth_state';
+      const stateKey = 'spotify_auth_state';
     
       server.use(cors())
             .use(cookieParser());
@@ -86,11 +86,11 @@ if (!dev && cluster.isMaster) {
       server.get('/login', function(req, res) {
         console.log('/login')
     
-        var state = generateRandomString(16);
+        const state = generateRandomString(16);
         res.cookie(stateKey, state);
     
         // your application requests authorization
-        var scope = 'user-read-private user-read-email user-top-read playlist-modify-private user-read-recently-played';
+        const scope = 'user-read-private user-read-email user-top-read playlist-modify-private user-read-recently-played';
         
         res.redirect('https://accounts.spotify.com/authorize?' +
           querystring.stringify({
@@ -108,9 +108,9 @@ if (!dev && cluster.isMaster) {
         // your application requests refresh and access tokens
         // after checking the state parameter
       
-        var code = req.query.code || null;
-        var state = req.query.state || null;
-        var storedState = req.cookies ? req.cookies[stateKey] : null;
+        const code = req.query.code || null;
+        const state = req.query.state || null;
+        const storedState = req.cookies ? req.cookies[stateKey] : null;
       
         if (state === null || state !== storedState) {
           res.redirect('/' +
@@ -119,7 +119,7 @@ if (!dev && cluster.isMaster) {
             }));
         } else {
           res.clearCookie(stateKey);
-          var authOptions = {
+          const authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             form: {
               code: code,
@@ -135,10 +135,11 @@ if (!dev && cluster.isMaster) {
           request.post(authOptions, function(error, response, body) {
             if (!error && response.statusCode === 200) {
       
-              var access_token = body.access_token,
-                  refresh_token = body.refresh_token;
-      
-              var options = {
+              // const access_token = body.access_token
+              // const refresh_token = body.refresh_token;
+              const { access_token, refresh_token } = body
+
+              const options = {
                 url: 'https://api.spotify.com/v1/me',
                 headers: { 'Authorization': 'Bearer ' + access_token },
                 json: true
