@@ -10,7 +10,8 @@ const Main = styled.main`
   background-color: ${props => props.theme.theme.bg.primary};
   margin: 0;
   padding: 0px 0px 20px 0px;
-  min-height: calc(100vh - 65px - 20px - 0px);
+  box-sizing: border-box;
+  min-height: calc(100vh - 65px - 152px - 0px);
 `
 
 const Content = styled.div`

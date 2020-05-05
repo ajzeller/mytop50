@@ -8,6 +8,7 @@ const FooterContainer = styled.div`
   width: 100%;
   background-color: ${props => props.theme.theme.bg.primary};
   border-top: 1px solid ${props => props.theme.theme.border.secondary};
+  box-sizing: border-box;
 `
 
 const FooterInner = styled.footer`
