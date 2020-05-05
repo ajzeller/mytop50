@@ -21,12 +21,12 @@ const Content = styled.div`
 const Layout = ({ headerIsVisible, children }) => (
   <div>
       <Head>
+        <meta name="description" content="View your most-played Spotify artists and tracks over time."/>
         <title>MyTop50</title>
-
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mytop50" />
         <meta name="twitter:title" content="MyTop50" />
-        <meta name="twitter:description" content="Your top Spotify artists and tracks over time" />
+        <meta name="twitter:description" content="View your most-played Spotify artists and tracks over time" />
         <meta name="twitter:image" content="https://mytop50.com/twitter1.png" />
       </Head>
 

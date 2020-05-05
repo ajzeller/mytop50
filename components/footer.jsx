@@ -11,13 +11,17 @@ const FooterContainer = styled.div`
 `
 
 const FooterInner = styled.footer`
+  width: 100%;
   margin: auto;
   display: grid;
   grid-template-columns: auto auto;
   padding: 10px;
   grid-gap: 20px;
-  justify-items: center;
-  align-items: center;
+  box-sizing: border-box;
+  /* justify-items: center; */
+  justify-content: space-between;
+  align-content: flex-start;
+  align-items: flex-start;
   /* max-width: ${props => props.theme.theme.contentWidths[0]}; */
   
   a {
@@ -30,16 +34,39 @@ const FooterInner = styled.footer`
   }
 `
 
+const ArticlesContainer = styled.div`
+  display: grid;
+  grid-gap: 8px;
+`
+
+const MadeByContainer = styled.div`
+  display: grid;
+  /* align-items: center; */
+  grid-template-columns: auto auto;
+  grid-gap: 8px;
+`
+
 const Footer = () => {
   return(
     <FooterContainer>
       <FooterInner>
-        <span>
-          Made by <a href='https://zeller.io' target="_blank" className='underline'>Andrew Zeller</a>
-        </span>
-        <a href='https://github.com/ajzeller/mytop50' target="_blank">
-          <IoLogoGithub size={24}/>
-        </a>
+        <ArticlesContainer>
+          <a href="/">Home</a>
+          <span><strong>Articles</strong></span>
+          <a href="/how-to-view-your-listening-history">How to view your Spotify listening history</a>
+          <a href="/how-to-view-your-most-played-song-on-spotify">How to view your most played song on Spotify</a>
+          <a href="/how-to-view-your-most-played-artist-on-spotify">How to view your most played artist on Spotify</a>
+        </ArticlesContainer>
+
+        <MadeByContainer>
+          <span>
+            Made by <a href='https://zeller.io' target="_blank" className='underline'>Andrew Zeller</a>
+          </span>
+          <a href='https://github.com/ajzeller/mytop50' target="_blank">
+            <IoLogoGithub size={24}/>
+          </a>
+        </MadeByContainer>
+
       </FooterInner>
     </FooterContainer>
   )
