@@ -6,13 +6,14 @@ const FooterContainer = styled.div`
   display: grid;
   color: ${props => props.theme.theme.text.primary};
   width: 100%;
-  background-color: ${props => props.theme.theme.bg.primary};
+  background-color: ${props => props.theme.theme.bg.inset};
   border-top: 1px solid ${props => props.theme.theme.border.secondary};
   box-sizing: border-box;
 `
 
 const FooterInner = styled.footer`
   width: 100%;
+  max-width: ${props => props.theme.theme.contentWidths[0]};
   margin: auto;
   display: grid;
   grid-template-columns: auto auto;
@@ -33,6 +34,10 @@ const FooterInner = styled.footer`
   .underline{
     border-bottom: 3px solid ${props => props.theme.theme.border.secondary};
   }
+
+  @media (max-width: 500px) {
+      grid-template-columns: auto;
+    }
 `
 
 const ArticlesContainer = styled.div`
@@ -45,6 +50,7 @@ const MadeByContainer = styled.div`
   /* align-items: center; */
   grid-template-columns: auto auto;
   grid-gap: 8px;
+  justify-content: flex-start;
 `
 
 const Footer = () => {
