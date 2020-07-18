@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import RemoteSetups from './remoteSetups'
 
 const Container = styled.div`
   display: grid;
@@ -46,6 +47,17 @@ const GreenButton = styled.a`
   }
 `
 
+const AdPanel = styled.div`
+  margin: 50px 0 0 0;
+  border: 2px solid ${props => props.theme.theme.border.secondary}; 
+  padding: 10px 30px;
+  border-radius: 15px;
+
+  a {
+    color: ${props => props.theme.theme.colors.spotifyBlue}; 
+  }
+`
+
 const Login = () => {
   return(
     <Container>
@@ -58,6 +70,7 @@ const Login = () => {
         You can also save your top tracks as a playlist. 
       </Tagline>
         <GreenButton href='/login' >Connect With Spotify</GreenButton>
+        <RemoteSetups />
     </Container>
   )
 }

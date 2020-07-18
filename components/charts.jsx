@@ -2,6 +2,7 @@ import { useContext } from "react";
 import styled from 'styled-components'
 import { SpotifyContext } from '../lib/spotify'
 import { IoIosPlay, IoIosArrowForward } from "react-icons/io";
+import RemoteSetups from './remoteSetups'
 
 const Container = styled.div`
   display: grid;
@@ -214,7 +215,9 @@ const Charts = () => {
         <ChartColumn className='artists' contentType={contentType}>
           {artists}
         </ChartColumn>
+
       </Container>
+      <RemoteSetups />
     </>
   )
 }
