@@ -64,6 +64,7 @@ const Footer = () => {
           <a href="/how-to-view-your-most-played-song-on-spotify">How to view your most played song on Spotify</a>
           <a href="/how-to-view-your-most-played-artist-on-spotify">How to view your most played artist on Spotify</a>
         </ArticlesContainer>
+        <a href="/privacypolicy">Privacy Policy</a>
 
         <MadeByContainer>
           <span>
