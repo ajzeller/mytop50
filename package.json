@@ -23,7 +23,7 @@
     "moment": "^2.24.0",
     "next": "latest",
     "next-ga": "^2.3.4",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "qs": "^6.9.1",
     "querystring": "^0.2.0",
     "react": "^16.12.0",
